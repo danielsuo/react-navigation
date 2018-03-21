@@ -18,6 +18,7 @@ const DrawerNavigatorItems = ({
   getLabel,
   renderIcon,
   onItemPress,
+  onItemPressIn,
   itemsContainerStyle,
   itemStyle,
   labelStyle,
@@ -42,6 +43,9 @@ const DrawerNavigatorItems = ({
           key={route.key}
           onPress={() => {
             onItemPress({ route, focused });
+          }}
+          onPressIn={() => {
+            onItemPressIn && onItemPressIn({ route, focused });
           }}
           delayPressIn={0}
         >
