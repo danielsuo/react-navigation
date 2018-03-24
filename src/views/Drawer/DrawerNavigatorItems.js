@@ -10,11 +10,14 @@ import TouchableItem from '../TouchableItem';
 const DrawerNavigatorItems = ({
   navigation: { state, navigate },
   items,
+  disabledItems,
   activeItemKey,
   activeTintColor,
   activeBackgroundColor,
   inactiveTintColor,
   inactiveBackgroundColor,
+  disabledTintColor,
+  disabledBackgroundColor,
   getLabel,
   renderIcon,
   onItemPress,
@@ -30,7 +33,14 @@ const DrawerNavigatorItems = ({
   <View style={[styles.container, itemsContainerStyle]}>
     {items.map((route, index) => {
       const focused = activeItemKey === route.key;
-      const color = focused ? activeTintColor : inactiveTintColor;
+      const disabled =
+        !!disabledItems &&
+        disabledItems.find(key => {
+          return key == route.key;
+        });
+      const color = disabled
+        ? disabledTintColor
+        : focused ? activeTintColor : inactiveTintColor;
       const backgroundColor = focused
         ? activeBackgroundColor
         : inactiveBackgroundColor;
