@@ -11,6 +11,7 @@ const DrawerNavigatorItems = ({
   navigation: { state, navigate },
   items,
   disabledItems,
+  skippedItems,
   activeItemKey,
   activeTintColor,
   activeBackgroundColor,
@@ -32,6 +33,14 @@ const DrawerNavigatorItems = ({
 }) => (
   <View style={[styles.container, itemsContainerStyle]}>
     {items.map((route, index) => {
+      if (
+        !!skippedItems &&
+        skippedItems.find(key => {
+          return key == route.key;
+        })
+      ) {
+        return null;
+      }
       const focused = activeItemKey === route.key;
       const disabled =
         !!disabledItems &&
